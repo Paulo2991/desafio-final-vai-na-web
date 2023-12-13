@@ -1,43 +1,61 @@
 package operacoesmatematicas;
 
-import java.util.Scanner;
-
 public class OperacoesMatematicas {
-	static Scanner entrada = new Scanner(System.in);
-	public static double somarValores(double valor1, double valor2) {
+	public static double somarValores(double... valores) {
 		double resultado = 0;
-		resultado = valor1 + valor2;
-		System.out.println("O resultado da soma desses valores é: " + resultado);
+		for (int i = 0; i < valores.length; i++) {
+			resultado += valores[i];
+			System.out.println("O resultado da soma desses valores é: " + resultado);
+		}
+
 		return resultado;
 	}
 
-	public static void subtrairValores(double valor1, double valor2) {
-		do {
-			System.out.println("O primeiro valor não pode ser maior que o segundo valor, digite outro numero:");
-			System.out.println("Informe o primeiro valor: ");
-			valor1 = entrada.nextDouble();
-			System.out.println("Informe o segundo valor: ");
-			valor2 = entrada.nextDouble();
-			break;
-		} while (valor1 > valor2);
-		double resultado = valor1 - valor2;
-		System.out.println("O resultado da subtração desses valores é: " + resultado);
-	}
+	public static double subtrairValores(double... valores) {
+		if (valores.length == 0) {
+			throw new ArithmeticException("Nenhum número fornecido para a subtração.");
+		}
 
-	public static double multiplicarValores(double valor1, double valor2) {
-		double resultado = valor1 * valor2;
-		System.out.println("O resultado da subtração desses valores é: " + resultado);
+		double resultado = valores[0];
+		for (int i = 1; i < valores.length; i++) {
+			if (valores[i] != 0) {
+				resultado -= valores[i];
+				System.out.println("O resultado da subtração desses valores é: " + resultado);
+			} else {
+				throw new ArithmeticException("Número negativo.");
+			}
+
+		}
 		return resultado;
 	}
 
-	public void dividirValores(double valor1, double valor2) {
-		do {
-			System.out.println("O resultado do dividendo não pode ser igual ou menor que 0:");
-			System.out.println("Informe o segundo valor: ");
-			valor2 = entrada.nextDouble();
-			break;
-		} while (valor2 <= 0);
-		double resultado = valor1 / valor2;
-		System.out.println("O resultado da subtração desses valores é: " + resultado);
+	public static double multiplicarValores(double... valores) {
+		if (valores.length == 0) {
+			return 1;
+		}
+		double resultadoMultiplicacao = 1;
+		for (double valor : valores) {
+			resultadoMultiplicacao *= valor;
+			System.out.println("Multiplicação: " + resultadoMultiplicacao);
+		}
+		return resultadoMultiplicacao;
 	}
+
+	public static double dividirValores(double... valores) {
+		if (valores.length == 0) {
+			throw new ArithmeticException("Nenhum número fornecido para a divisão.");
+		}
+		double resultado = valores[0];
+		for (int i = 1; i < valores.length; i++) {
+			if (valores[i] != 0) {
+				resultado /= valores[i];
+				System.out.println("O resultado da divisão desses valores é: " + resultado);
+			} else {
+				throw new ArithmeticException("Divisão por zero encontrada.");
+
+			}
+		}
+		return resultado;
+	}
+
 }
